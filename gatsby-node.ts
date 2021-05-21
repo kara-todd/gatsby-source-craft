@@ -232,7 +232,8 @@ async function getGatsbyNodeTypes() {
 
             // and define queries for the concrete type
             if (sourceNodeInformation.node) {
-                queries += `query NODE_${typeName} { ${sourceNodeInformation.node}(id: $id siteId: $siteId status: null) { ... ${fragmentInfo.fragmentName}  } }
+                const status = typeName.includes("Entry") ? ` status: null` : ``;
+                queries += `query NODE_${typeName} { ${sourceNodeInformation.node}(id: $id siteId: $siteId${status}) { ... ${fragmentInfo.fragmentName}  } }
                 `;
             }
 
